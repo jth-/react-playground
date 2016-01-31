@@ -1,4 +1,5 @@
 # React Playground
+![Dog Swinging](https://media.giphy.com/media/6Rxl284DsjF8A/giphy.gif)
 Welcome to the React Playground, a branch-based learning approach to getting up and running with React.
 
 ## Instructions
