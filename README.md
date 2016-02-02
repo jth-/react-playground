@@ -13,7 +13,7 @@ git checkout step-one:just-the-basics
 For each of the additional step, follow the same pattern of checking out the next, appropriate branch.
 
 ## Steps
-1. **Just the Basics** An introduction to the concept of React components (and JSX) and how to get a basic component rendered on a page.
-2. **Props and State** Learning the idea of data and updating the UI with new data.
-3. **Multiple Components** How do multiple components interact with each other without implementing a state-management framework?
-4. **Test - Building a color picker** Using what we've learned so far, let's build a simple color picker using React components
+1. **Just the Basics** An introduction to the concept of React components (and JSX) and how to get a basic component rendered on a page. `git checkout step-one-just-the-basics`
+2. **Props and State** Learning the idea of data and updating the UI with new data. `git checkout step-two-props-and-state`
+3. **Multiple Components** How do multiple components interact with each other without implementing a state-management framework? `git checkout step-three-multiple-components`
+4. **Choose Your Own Adventure** Using what we've learned so far, let's build one of two sample projects. `git checkout step-four-choose-your-own-adventure`
