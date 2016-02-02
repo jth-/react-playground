@@ -81,4 +81,7 @@ So far, we've made components, but we haven't actually got them into the DOM. To
 Notice that our `render` method takes two arguments: (1) a defined component and (2) a DOM element where we should render that component.
 
 ## Now It's Your Turn
-Using our `index.html`, create a simple React component that renders some html element(s) on the div with the id `app-mount`. Try to make sure that you're rendering multiple html elements.
+Using our `index.html`, create a simple React component that renders some html element(s) on the div with the id `app-mount`. Try to make sure that you're rendering multiple html elements. To open the file, just run the following from this directory:
+```bash
+open index.html
+```
