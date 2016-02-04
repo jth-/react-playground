@@ -3,10 +3,129 @@
     <script src="js/react.js"></script>
     <script src="js/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <style>
+      @keyframes rotating {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .swag-title
+      {
+        color: green;
+        margin: 150px;
+        text-align: center;
+        animation: rotating 2s linear infinite;
+      }
+      .ticker
+      {
+        float: left;
+         width: 25%;
+         border: 1px dashed red;
+         padding: 10px;
+         margin-right: 10px;
+       }
+      .moneys
+      {
+        display: inline-block;
+        background-color: green;
+        color: white;
+        padding: 10px;
+      }
+    </style>
   </head>
   <body>
+    <h1 class="swag-title">$$ buy low SELL HIGH $$</h1>
     <div id="app-mount"></div>
     <script type="text/babel">
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    var Ticker = React.createClass({
+      getInitialState: function() {
+        this.updateInterval = setInterval(this.updatePrice, 1000);
+        return {
+          price: getRandomInt(10, 50),
+          buyQuantity: 10,
+          sellQuantity: 10,
+          owned: 0
+        };
+      },
+      buy: function() {
+        this.setState({ owned: this.state.owned + this.state.buyQuantity });
+        $('body').trigger('moneyChange', -1 * this.state.buyQuantity * this.state.price);
+      },
+      sell: function() {
+        this.setState({ owned: this.state.owned - this.state.sellQuantity });
+        $('body').trigger('moneyChange', this.state.sellQuantity * this.state.price);
+      },
+      buyChangeQuantity: function(e) {
+        this.setState({ buyQuantity: parseInt(e.target.value) });
+      },
+      sellChangeQuantity: function(e) {
+        this.setState({ sellQuantity: parseInt(e.target.value) });
+      },
+      updatePrice: function() {
+        var newPrice = this.state.price + getRandomInt(-5, 5);
+        if (newPrice <= 0) {
+          newPrice = 0;
+          clearInterval(this.updateInterval);
+        }
+        this.setState({ price: newPrice });
+      },
+      render: function() {
+        // Should make buy and sell buttons sub components
+        return (
+          <div className="ticker">
+            <h3>{this.props.symbol}</h3>
+            <p>Price: {this.state.price}</p>
+            <p>Owned: {this.state.owned}</p>
+            <div>
+              Buy:
+              <input type="number" onChange={this.buyChangeQuantity} defaultValue={this.state.buyQuantity} />
+              <input type="button" onClick={this.buy} value={"$" + (this.state.buyQuantity * this.state.price)} disabled={this.props.availableFunds < this.state.buyQuantity * this.state.price} />
+            </div>
+            <div>
+              Sell:
+              <input type="number" onChange={this.sellChangeQuantity} defaultValue={this.state.sellQuantity} />
+              <input type="button" onClick={this.sell} value={"$" + (this.state.sellQuantity * this.state.price)} disabled={this.state.sellQuantity > this.state.owned} />
+            </div>
+          </div>
+        )
+      }
+    });
+    var Wallet = React.createClass({
+      getInitialState: function(){
+        var self = this;
+        $('body').on('moneyChange', function(e, amount) {
+          self.setState({ moneys: self.state.moneys + amount });
+        });
+        return {
+          moneys: 10000
+        };
+      },
+      render: function(){
+        return (
+          <div>
+            <h1 className="moneys">{"$" + this.state.moneys}</h1>
+            <Ticker symbol="AAPL" availableFunds={this.state.moneys} />
+            <Ticker symbol="GOOG" availableFunds={this.state.moneys} />
+            <Ticker symbol="PUNK" availableFunds={this.state.moneys} />
+          </div>
+        )
+      }
+    });
+
+    ReactDOM.render(
+      <Wallet />,
+      document.getElementById('app-mount')
+    )
+
     </script>
   </body>
 </html>
