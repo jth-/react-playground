@@ -8,7 +8,7 @@ To get started with this tutorial, clone this repo to your local box and checkou
 ```bash
 git clone https://github.com/jsumnersmith/react-playground.git
 cd react-playground
-git checkout step-one:just-the-basics
+git checkout step-one-just-the-basics
 ```
 For each of the additional step, follow the same pattern of checking out the next, appropriate branch.
 
